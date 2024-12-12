@@ -1,0 +1,15 @@
+section {
+  padding-top: 1rem;
+}
+
+.phone-number:hover {
+  cursor: pointer !important;
+}
+
+.order {
+  &__container {
+    max-width: 1024px;
+    text-align: center;
+    margin: 0 auto;
+  }
+}
