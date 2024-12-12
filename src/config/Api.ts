@@ -2,7 +2,7 @@ import axios from 'axios';
 
 //TODO: fix url
 export const axiosClient = axios.create({
-  baseURL: 'http://localhost:5000/api/',
+  baseURL: 'order-server-six.vercel.app',
   withCredentials: true
 });
 
