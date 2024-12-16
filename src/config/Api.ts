@@ -3,7 +3,6 @@ import axios from 'axios';
 //TODO: fix url
 export const axiosClient = axios.create({
   baseURL: 'https://order-server-jrzpizzr1-dongs-projects-3d51270f.vercel.app/',
-  withCredentials: true
 });
 
 export const setCookie = (cookie: string) => {
