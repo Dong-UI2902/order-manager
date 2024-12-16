@@ -1,8 +1,10 @@
 import axios from 'axios';
+import isDev from './helper';
 
 //TODO: fix url
 export const axiosClient = axios.create({
-  baseURL: 'https://order-server-seven.vercel.app/api',
+  baseURL: isDev() ? 'http://localhost:5000/api' : 'https://order-server-nine.vercel.app/api',
+  withCredentials: true
 });
 
 export const setCookie = (cookie: string) => {
