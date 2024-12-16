@@ -15,6 +15,6 @@ export const ORDER = {
 
 export const TYPE = ["GRAB", "AHAMOVE", "SHIPPER", "GHN"];
 
-export const PAGE = ["THƠM PARFUM", "PAGE 1", "PAGE 2"]
+export const PAGE = ["THƠM PARFUM", "PAGE 1", "PAGE 2", "THƠM PARFUM 2"]
 
 export const STATUS = ["CREATED", "TO SHIP", "SHIPPING", "SHIPPED", "CANCEL"];
