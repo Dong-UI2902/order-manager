@@ -2,7 +2,7 @@ import axios from 'axios';
 
 //TODO: fix url
 export const axiosClient = axios.create({
-  baseURL: 'http://order-server-six.vercel.app/',
+  baseURL: 'https://order-server-94jlugatm-dongs-projects-3d51270f.vercel.app/',
   withCredentials: true
 });
 
