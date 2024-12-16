@@ -65,8 +65,6 @@ const Statistical = () => {
       total = total + item.cod;
     });
 
-    console.log(type);
-
     return { revenue: total.toLocaleString(), count: filtered.length };
   };
 
