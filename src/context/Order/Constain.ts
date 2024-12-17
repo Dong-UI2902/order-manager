@@ -6,7 +6,8 @@ export const ORDER = {
     cod: {
         paid: false,
         total: 0,
-        deposit: 0
+        deposit: 0,
+        transCost: 0
     },
     paid: false,
     products: [] as any,

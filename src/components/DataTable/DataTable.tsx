@@ -80,7 +80,11 @@ const DataTable: React.FC<{
             sx={{ maxWidth: column.maxWidth }}
           >
             <Chip
-              label={column.format(row[column.id])}
+              label={column.format(
+                row[column.id].total +
+                  row[column.id].deposit -
+                  row[column.id].transCost
+              )}
               icon={
                 row[column.id].paid ? (
                   <CheckCircleIcon color="success" />
@@ -205,7 +209,14 @@ const DataTable: React.FC<{
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
-                  <TableRow hover tabIndex={-1} key={row._id}>
+                  <TableRow
+                    hover
+                    tabIndex={-1}
+                    key={row._id}
+                    sx={{
+                      backgroundColor: `${row.status === "SHIPPED" && "rgb(237, 247, 237)!important"}`,
+                    }}
+                  >
                     {columns.map((column) => {
                       return (
                         <TableCell key={column.id} align={column.align}>

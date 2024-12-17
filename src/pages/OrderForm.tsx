@@ -8,6 +8,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  Stack,
   TextField,
   Typography,
 } from "@mui/material";
@@ -124,26 +125,47 @@ const OrderForm = () => {
               onChange={handleChange}
               value={order.phoneNumber}
             />
-            <TextField
-              id="standard-basic"
-              label="Tiền cọc"
-              sx={{ mt: 0.5 }}
-              variant="standard"
-              slotProps={{
-                input: {
-                  endAdornment: (
-                    <InputAdornment position="start">vnđ</InputAdornment>
-                  ),
-                },
-              }}
-              value={order.cod.deposit.toLocaleString("en-US")}
-              onChange={(event: any) => {
-                setOrder({
-                  ...order,
-                  cod: { ...order.cod, deposit: event.target.value },
-                });
-              }}
-            />
+
+            <Stack direction="row" spacing={1} mt={0.5}>
+              <TextField
+                id="standard-basic"
+                label="Tiền cọc"
+                variant="standard"
+                slotProps={{
+                  input: {
+                    endAdornment: (
+                      <InputAdornment position="start">vnđ</InputAdornment>
+                    ),
+                  },
+                }}
+                value={order.cod.deposit.toLocaleString("en-US")}
+                onChange={(event: any) => {
+                  setOrder({
+                    ...order,
+                    cod: { ...order.cod, deposit: event.target.value },
+                  });
+                }}
+              />
+              <TextField
+                id="standard-basic"
+                label="Phí ship"
+                variant="standard"
+                slotProps={{
+                  input: {
+                    endAdornment: (
+                      <InputAdornment position="start">vnđ</InputAdornment>
+                    ),
+                  },
+                }}
+                value={order.cod.transCost.toLocaleString("en-US")}
+                onChange={(event: any) => {
+                  setOrder({
+                    ...order,
+                    cod: { ...order.cod, transCost: event.target.value },
+                  });
+                }}
+              />
+            </Stack>
           </FormControl>
 
           <FormControl fullWidth sx={{ m: 1, width: "25ch" }}>

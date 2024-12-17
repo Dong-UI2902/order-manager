@@ -4,6 +4,7 @@ export interface Cod {
     paid: boolean;
     total: number;
     deposit: number;
+    transCost: number;
 }
 
 export interface Order {

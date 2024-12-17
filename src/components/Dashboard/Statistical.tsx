@@ -13,7 +13,7 @@ const Statistical = () => {
     if (type) filtered = orders.filter((item) => item.status === type);
 
     filtered.forEach((item) => {
-      total = total + item.cod.total;
+      total = total + item.cod.total + item.cod.deposit - item.cod.transCost;
     });
 
     return { revenue: total.toLocaleString(), count: filtered.length };

@@ -48,7 +48,7 @@ const columns: ColumnOrder[] = [
     label: "Tiền cod",
     maxWidth: 150,
     align: "right",
-    format: (value: Cod) => `${value.total.toLocaleString("en-US")}vnđ`,
+    format: (value: number) => `${value.toLocaleString("en-US")}vnđ`,
   },
   {
     id: "deliveredBy",
