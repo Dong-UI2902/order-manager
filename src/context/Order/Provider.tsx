@@ -1,7 +1,8 @@
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { Order, OrderContextAPI } from "./types";
 import OrderSerive from "./services";
 import { ORDER } from "./Constain";
+import { useLocation } from "react-router-dom";
 
 const OrderContext = createContext<OrderContextAPI>({} as OrderContextAPI);
 
@@ -10,11 +11,16 @@ const OrderProvider: React.FC<{ children: any }> = ({ children }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [orders, setOrders] = useState<Order[]>([]);
   const [order, setOrder] = useState<Order>(ORDER);
+  const location = useLocation();
+
+  useEffect(() => {
+    if (error) setError(undefined);
+  }, [location.pathname]);
 
   const getOrders = () => {
     setLoading(true);
 
-    const data = OrderSerive.getOrders()
+    OrderSerive.getOrders()
       .then((res) => setOrders(res.data))
       .catch()
       .finally(() => setLoading(false));
@@ -27,7 +33,7 @@ const OrderProvider: React.FC<{ children: any }> = ({ children }) => {
       .then((res) => {
         const index = orders.findIndex((item) => item._id === newOrder._id);
         orders[index] = newOrder;
-        console.log(orders);
+        setError(undefined);
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
@@ -64,6 +70,7 @@ const OrderProvider: React.FC<{ children: any }> = ({ children }) => {
     OrderSerive.addNewOrder(newOrder)
       .then((res) => {
         setOrder(ORDER);
+        setError(undefined);
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));

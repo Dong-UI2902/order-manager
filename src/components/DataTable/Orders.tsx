@@ -5,6 +5,7 @@ import { formatDistance } from "date-fns";
 import { useAuth } from "../../context/Auth";
 import { vi } from "date-fns/locale";
 import { Cod } from "../../context/Order/types";
+import SkeletonTable from "./SkeletonTable";
 
 export interface ColumnOrder {
   id:
@@ -45,7 +46,7 @@ const columns: ColumnOrder[] = [
   {
     id: "cod",
     label: "Tiền cod",
-    minWidth: 170,
+    maxWidth: 150,
     align: "right",
     format: (value: Cod) => `${value.total.toLocaleString("en-US")}vnđ`,
   },
@@ -70,7 +71,6 @@ const columns: ColumnOrder[] = [
   {
     id: "createdAt",
     label: "Ngày tạo",
-    minWidth: 170,
     align: "right",
     format: (value: Date) =>
       `${formatDistance(new Date(), new Date(value), { locale: vi })}`,
@@ -78,13 +78,11 @@ const columns: ColumnOrder[] = [
   {
     id: "page",
     label: "Page",
-    minWidth: 150,
     align: "right",
   },
   {
     id: "action",
     label: "Thao tác",
-    minWidth: 100,
     align: "right",
   },
 ];
@@ -118,7 +116,7 @@ const columns: ColumnOrder[] = [
 // ];
 
 const Orders = () => {
-  const { orders, getOrders } = useOrder();
+  const { orders, getOrders, loading } = useOrder();
   const { getShipper } = useAuth();
 
   useEffect(() => {
@@ -128,7 +126,11 @@ const Orders = () => {
 
   return (
     <>
-      {orders.length > 0 && <DataTable columns={columns} rows={orders || []} />}
+      {loading ? (
+        <SkeletonTable />
+      ) : (
+        <DataTable columns={columns} rows={orders || []} />
+      )}
     </>
   );
 };

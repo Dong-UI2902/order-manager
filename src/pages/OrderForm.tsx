@@ -9,6 +9,7 @@ import {
   MenuItem,
   Select,
   TextField,
+  Typography,
 } from "@mui/material";
 import React, { useEffect, useRef } from "react";
 import { ORDER, PAGE, TYPE } from "../context/Order/Constain";
@@ -17,8 +18,16 @@ import { useAuth } from "../context/Auth";
 import { useParams } from "react-router-dom";
 
 const OrderForm = () => {
-  const { order, setOrder, stringToArr, addNewOrder, findById, updateOrder } =
-    useOrder();
+  const {
+    order,
+    setOrder,
+    stringToArr,
+    addNewOrder,
+    findById,
+    updateOrder,
+    loading,
+    error,
+  } = useOrder();
   const { user, shippers, getShipper } = useAuth();
   const { id } = useParams();
 
@@ -68,6 +77,8 @@ const OrderForm = () => {
 
   useEffect(() => {
     getShipper();
+    if (!user) window.location.href = "/signin";
+
     if (id) {
       return findById(id);
     }
@@ -267,12 +278,15 @@ const OrderForm = () => {
               }}
             />
           </FormControl>
+          <Typography color="error" variant="subtitle1" gutterBottom>
+            {error}
+          </Typography>
           <div>
             <FormControl
               variant="filled"
               sx={{ ml: 1, mt: 1.5, mb: 1, width: "25ch" }}
             >
-              <Button variant="contained" type="submit">
+              <Button variant="contained" type="submit" disabled={loading}>
                 {id ? "Cập nhật đơn hàng" : "Tạo mới đơn hàng"}
               </Button>
             </FormControl>

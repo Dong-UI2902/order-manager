@@ -74,7 +74,11 @@ const DataTable: React.FC<{
 
       case "cod":
         return (
-          <Tooltip title={row[column.id].deposit.toLocaleString("en-US")} arrow>
+          <Tooltip
+            title={row[column.id].deposit.toLocaleString("en-US")}
+            arrow
+            sx={{ maxWidth: column.maxWidth }}
+          >
             <Chip
               label={column.format(row[column.id])}
               icon={
@@ -99,7 +103,7 @@ const DataTable: React.FC<{
             color="primary"
             onClick={() => (window.location.href = `order/${row._id}`)}
           >
-            <EditIcon />
+            <EditIcon fontSize="small" />
           </IconButton>
         );
 
