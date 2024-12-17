@@ -4,6 +4,7 @@ import { useOrder } from "../../context/Order/Provider";
 import { formatDistance } from "date-fns";
 import { useAuth } from "../../context/Auth";
 import { vi } from "date-fns/locale";
+import { Cod } from "../../context/Order/types";
 
 export interface ColumnOrder {
   id:
@@ -46,7 +47,7 @@ const columns: ColumnOrder[] = [
     label: "Tiền cod",
     minWidth: 170,
     align: "right",
-    format: (value: number) => `${value.toLocaleString("en-US")}vnđ`,
+    format: (value: Cod) => `${value.total.toLocaleString("en-US")}vnđ`,
   },
   {
     id: "deliveredBy",
@@ -87,14 +88,6 @@ const columns: ColumnOrder[] = [
     align: "right",
   },
 ];
-
-export interface DataOrder {
-  name: string;
-  code: string;
-  population: number;
-  size: number;
-  density: number;
-}
 
 // function createData(
 //   name: string,

@@ -12,6 +12,8 @@ import {
   Select,
   Tooltip,
   IconButton,
+  Chip,
+  Badge,
 } from "@mui/material";
 import React from "react";
 import { ColumnOrder } from "./Orders";
@@ -20,6 +22,7 @@ import { STATUS, TYPE } from "../../context/Order/Constain";
 import { useOrder } from "../../context/Order/Provider";
 import { useAuth } from "../../context/Auth";
 import EditIcon from "@mui/icons-material/Edit";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 const DataTable: React.FC<{
   columns: ColumnOrder[] | ColumnPage[];
@@ -42,99 +45,134 @@ const DataTable: React.FC<{
     setPage(0);
   };
 
-  const HandleValue = (row: any, column: any) => {
-    if (column.id == "createdBy") return row[column.id].name;
-
-    if (column.id === "cod" || column.id === "createdAt")
-      return column.format(row[column.id]);
-
-    if (column.id === "action")
-      return (
-        <IconButton
-          aria-label="delete"
-          color="primary"
-          onClick={() => (window.location.href = `order/${row._id}`)}
+  const HandlePhoneOrAddress = (row: any, column: any) => {
+    return (
+      <Tooltip title="Click để copy">
+        <div
+          className="phone-number"
+          onClick={() => navigator.clipboard.writeText(row[column.id])}
         >
-          <EditIcon />
-        </IconButton>
-      );
+          {row[column.id]}
+        </div>
+      </Tooltip>
+    );
+  };
 
-    if (column.id == "phoneNumber" || column.id == "address")
-      return (
-        <Tooltip title="Click để copy">
-          <div
-            className="phone-number"
-            onClick={() => navigator.clipboard.writeText(row[column.id])}
-          >
-            {row[column.id]}
-          </div>
-        </Tooltip>
-      );
+  const HandleValue = (row: any, column: any) => {
+    switch (column.id) {
+      case "createdBy":
+        return row[column.id].name;
 
-    if (column.id === "type")
-      return (
-        <FormControl variant="standard" sx={{ width: column.maxWidth }}>
-          <Select
-            labelId="demo-simple-select-standard-label"
-            id="demo-simple-select-standard"
-            value={row["type"]}
-            onChange={(event: { target: { value: string } }) => {
-              updateOrder({ ...row, type: event.target.value });
-            }}
-          >
-            {TYPE.map((item) => (
-              <MenuItem value={item} key={item}>
-                {item}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      );
+      case "name":
+        return (
+          <Badge color="secondary" variant="dot" invisible={row["desc"] === ""}>
+            <Tooltip title={row["desc"]} arrow>
+              {row[column.id]}
+            </Tooltip>
+          </Badge>
+        );
 
-    if (column.id === "deliveredBy") {
-      return (
-        <FormControl variant="standard" sx={{ width: column.maxWidth }}>
-          <Select
-            labelId="demo-simple-select-standard-label"
-            id="demo-simple-select-standard"
-            value={row["deliveredBy"] ? row["deliveredBy"] : ""}
-            onChange={(event: { target: { value: string } }) => {
-              updateOrder({ ...row, deliveredBy: event.target.value });
-            }}
-            disabled={row["type"] !== "SHIPPER"}
+      case "cod":
+        return (
+          <Tooltip title={row[column.id].deposit.toLocaleString("en-US")} arrow>
+            <Chip
+              label={column.format(row[column.id])}
+              icon={
+                row[column.id].paid ? (
+                  <CheckCircleIcon color="success" />
+                ) : (
+                  <></>
+                )
+              }
+              variant="outlined"
+              color={row[column.id].deposit > 0 ? "warning" : "default"}
+            />
+          </Tooltip>
+        );
+      case "createdAt":
+        return column.format(row[column.id]);
+
+      case "action":
+        return (
+          <IconButton
+            aria-label="delete"
+            color="primary"
+            onClick={() => (window.location.href = `order/${row._id}`)}
           >
-            {shippers.map((item) => (
-              <MenuItem value={item._id} key={item._id}>
-                {item.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      );
+            <EditIcon />
+          </IconButton>
+        );
+
+      case "type":
+        return (
+          <FormControl variant="standard" sx={{ width: column.maxWidth }}>
+            <Select
+              labelId="demo-simple-select-standard-label"
+              id="demo-simple-select-standard"
+              value={row["type"]}
+              onChange={(event: { target: { value: string } }) => {
+                updateOrder({ ...row, type: event.target.value });
+              }}
+            >
+              {TYPE.map((item) => (
+                <MenuItem value={item} key={item}>
+                  {item}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        );
+
+      case "deliveredBy":
+        return (
+          <FormControl variant="standard" sx={{ width: column.maxWidth }}>
+            <Select
+              labelId="demo-simple-select-standard-label"
+              id="demo-simple-select-standard"
+              value={row["deliveredBy"] ? row["deliveredBy"] : ""}
+              onChange={(event: { target: { value: string } }) => {
+                updateOrder({ ...row, deliveredBy: event.target.value });
+              }}
+              disabled={row["type"] !== "SHIPPER"}
+            >
+              {shippers.map((item) => (
+                <MenuItem value={item._id} key={item._id}>
+                  {item.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        );
+
+      case "status":
+        return (
+          <FormControl variant="standard" sx={{ width: column.maxWidth }}>
+            <Select
+              labelId="demo-simple-select-standard-label"
+              id="demo-simple-select-standard"
+              value={row["status"]}
+              onChange={(event: { target: { value: string } }) => {
+                updateOrder({ ...row, status: event.target.value });
+              }}
+            >
+              {STATUS.map((item) => (
+                <MenuItem value={item} key={item}>
+                  {item}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        );
+
+      case "phoneNumber":
+        return HandlePhoneOrAddress(row, column);
+
+      case "address":
+        return HandlePhoneOrAddress(row, column);
+
+      default:
+        return row[column.id];
     }
-
-    if (column.id === "status") {
-      return (
-        <FormControl variant="standard" sx={{ width: column.maxWidth }}>
-          <Select
-            labelId="demo-simple-select-standard-label"
-            id="demo-simple-select-standard"
-            value={row["status"]}
-            onChange={(event: { target: { value: string } }) => {
-              updateOrder({ ...row, status: event.target.value });
-            }}
-          >
-            {STATUS.map((item) => (
-              <MenuItem value={item} key={item}>
-                {item}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      );
-    }
-
-    return row[column.id];
   };
 
   return (
@@ -165,8 +203,6 @@ const DataTable: React.FC<{
                 return (
                   <TableRow hover tabIndex={-1} key={row._id}>
                     {columns.map((column) => {
-                      const value = row[column.id];
-
                       return (
                         <TableCell key={column.id} align={column.align}>
                           {HandleValue(row, column)}

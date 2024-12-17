@@ -3,13 +3,19 @@ export const ORDER = {
     name: "",
     address: "",
     phoneNumber: "",
-    cod: 0,
+    cod: {
+        paid: false,
+        total: 0,
+        deposit: 0
+    },
+    paid: false,
     products: [] as any,
     page: "",
     type: "GHN",
     deliveredBy: null,
     status: "CREATED",
     createdBy: undefined,
+    desc: "",
     createdAt: undefined
 }
 

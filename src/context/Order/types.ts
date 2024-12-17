@@ -1,17 +1,24 @@
 import { User } from "../Auth";
 
+export interface Cod {
+    paid: boolean;
+    total: number;
+    deposit: number;
+}
+
 export interface Order {
     _id?: string;
     name: string;
     address: string;
     phoneNumber: string;
-    cod: number;
+    cod: Cod;
     products: string[];
     page?: string;
     type: string;
     deliveredBy: string | null;
     status: string;
     createdBy?: User;
+    desc: string;
     createdAt?: Date;
 };
 

@@ -1,7 +1,9 @@
 import {
   Box,
   Button,
+  Checkbox,
   FormControl,
+  FormControlLabel,
   InputAdornment,
   InputLabel,
   MenuItem,
@@ -37,7 +39,10 @@ const OrderForm = () => {
         name: arr[0],
         phoneNumber: arr[1],
         address: arr[2],
-        cod: Number(arr[3]?.replace(/[^0-9]/g, "")),
+        cod: {
+          ...order.cod,
+          total: Number(arr[3]?.replace(/[^0-9]/g, "")),
+        },
       });
     }
 
@@ -49,7 +54,10 @@ const OrderForm = () => {
 
     const newOrder = {
       ...order,
-      cod: Number(order.cod.toLocaleString().replace(/\D/g, "")),
+      cod: {
+        ...order.cod,
+        total: Number(order.cod.total.toLocaleString().replace(/\D/g, "")),
+      },
       createdBy: user,
     };
 
@@ -86,6 +94,15 @@ const OrderForm = () => {
               variant="outlined"
               value={order.name}
             />
+            <TextField
+              id="standard-basic"
+              label="Ghi chú"
+              sx={{ mt: 0.5 }}
+              variant="standard"
+              name="desc"
+              onChange={handleChange}
+              value={order.desc}
+            />
           </FormControl>
           <FormControl fullWidth sx={{ m: 1, width: "25ch" }}>
             <TextField
@@ -95,6 +112,26 @@ const OrderForm = () => {
               name="phoneNumber"
               onChange={handleChange}
               value={order.phoneNumber}
+            />
+            <TextField
+              id="standard-basic"
+              label="Tiền cọc"
+              sx={{ mt: 0.5 }}
+              variant="standard"
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <InputAdornment position="start">vnđ</InputAdornment>
+                  ),
+                },
+              }}
+              value={order.cod.deposit.toLocaleString("en-US")}
+              onChange={(event: any) => {
+                setOrder({
+                  ...order,
+                  cod: { ...order.cod, deposit: event.target.value },
+                });
+              }}
             />
           </FormControl>
 
@@ -111,8 +148,25 @@ const OrderForm = () => {
                   ),
                 },
               }}
-              onChange={handleChange}
-              value={order.cod.toLocaleString("en-US")}
+              onChange={(event: any) => {
+                setOrder({
+                  ...order,
+                  cod: { ...order.cod, total: event.target.value },
+                });
+              }}
+              value={order.cod.total.toLocaleString("en-US")}
+            />
+            <FormControlLabel
+              control={<Checkbox />}
+              label="Đã thanh toán"
+              checked={order.cod.paid}
+              sx={{ mt: 1 }}
+              onChange={(event: any) => {
+                setOrder({
+                  ...order,
+                  cod: { ...order.cod, paid: event.target.checked },
+                });
+              }}
             />
           </FormControl>
           <FormControl fullWidth sx={{ m: 1, width: "52ch" }}>
@@ -204,7 +258,7 @@ const OrderForm = () => {
               // label="Sản phẩm"
               multiline
               rows={4}
-              value={order.products}
+              defaultValue={order.products}
               onChange={(event: { target: { value: string } }) => {
                 setOrder({
                   ...order,
