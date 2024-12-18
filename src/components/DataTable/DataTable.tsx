@@ -67,7 +67,7 @@ const DataTable: React.FC<{
         return (
           <Badge color="secondary" variant="dot" invisible={row["desc"] === ""}>
             <Tooltip title={row["desc"]} arrow>
-              {row[column.id]}
+              <span>{row[column.id]}</span>
             </Tooltip>
           </Badge>
         );

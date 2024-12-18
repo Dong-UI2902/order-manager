@@ -7,6 +7,12 @@ async function getOrders(): Promise<OrderRespone> {
     return response.data;
 };
 
+async function getOrdersWithFilter(filter: any): Promise<OrderRespone> {
+    const response = await Api.post('order/filter', filter);
+  
+    return response.data;
+};
+
 async function findbyId(id: string): Promise<OrderRespone> {
     const response = await Api.get(`order/${id}`);
   
@@ -27,6 +33,7 @@ async function updateOrder(newOrder: Order): Promise<OrderRespone> {
 
 export default {
     getOrders,
+    getOrdersWithFilter,
     updateOrder,
     addNewOrder,
     findbyId

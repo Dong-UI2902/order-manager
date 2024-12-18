@@ -3,6 +3,8 @@ import { Order, OrderContextAPI } from "./types";
 import OrderSerive from "./services";
 import { ORDER } from "./Constain";
 import { useLocation } from "react-router-dom";
+import { DateRange } from "@mui/x-date-pickers-pro";
+import dayjs, { Dayjs } from "dayjs";
 
 const OrderContext = createContext<OrderContextAPI>({} as OrderContextAPI);
 
@@ -11,6 +13,11 @@ const OrderProvider: React.FC<{ children: any }> = ({ children }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [orders, setOrders] = useState<Order[]>([]);
   const [order, setOrder] = useState<Order>(ORDER);
+  const [date, setDate] = useState<DateRange<Dayjs>>([
+    dayjs().subtract(7, "day"),
+    dayjs(),
+  ]);
+
   const location = useLocation();
 
   useEffect(() => {
@@ -21,6 +28,15 @@ const OrderProvider: React.FC<{ children: any }> = ({ children }) => {
     setLoading(true);
 
     OrderSerive.getOrders()
+      .then((res) => setOrders(res.data))
+      .catch()
+      .finally(() => setLoading(false));
+  };
+
+  const getOrdersWithFilter = (filter: any) => {
+    setLoading(true);
+
+    OrderSerive.getOrdersWithFilter(filter)
       .then((res) => setOrders(res.data))
       .catch()
       .finally(() => setLoading(false));
@@ -98,8 +114,11 @@ const OrderProvider: React.FC<{ children: any }> = ({ children }) => {
       arrToString,
       addNewOrder,
       findById,
+      getOrdersWithFilter,
+      date,
+      setDate,
     }),
-    [order, orders, loading, error]
+    [date, order, orders, loading, error]
   );
 
   return (

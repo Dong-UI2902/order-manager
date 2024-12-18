@@ -1,3 +1,5 @@
+import { DateRange } from "@mui/x-date-pickers-pro";
+import { Dayjs } from "dayjs";
 import { User } from "../Auth";
 
 export interface Cod {
@@ -30,6 +32,8 @@ export interface OderProviderState {
     setOrder: React.Dispatch<React.SetStateAction<Order>>;
     orders: Order[];
     // setOrders: React.Dispatch<React.SetStateAction<Order[]>>;
+    date: DateRange<Dayjs>
+    setDate: React.Dispatch<React.SetStateAction< DateRange<Dayjs>>>;
 };
 
 export interface OrderRespone {
@@ -40,6 +44,7 @@ export interface OrderRespone {
 
 export interface OrderContextAPI extends OderProviderState {
     getOrders: () => void;
+    getOrdersWithFilter: (filter: any) => void;
     // addNewOrder: (order: Order) => void;
     updateOrder: (newOrder: Order) => void;
     arrToString: (products: string[]) => string;

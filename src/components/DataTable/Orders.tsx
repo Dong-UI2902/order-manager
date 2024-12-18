@@ -4,7 +4,6 @@ import { useOrder } from "../../context/Order/Provider";
 import { formatDistance } from "date-fns";
 import { useAuth } from "../../context/Auth";
 import { vi } from "date-fns/locale";
-import { Cod } from "../../context/Order/types";
 import SkeletonTable from "./SkeletonTable";
 
 export interface ColumnOrder {
@@ -116,11 +115,14 @@ const columns: ColumnOrder[] = [
 // ];
 
 const Orders = () => {
-  const { orders, getOrders, loading } = useOrder();
+  const { orders, getOrdersWithFilter, date, loading } = useOrder();
   const { getShipper } = useAuth();
 
   useEffect(() => {
-    getOrders();
+    getOrdersWithFilter({ filter: "", since: date[0], until: date[1] });
+  }, [date]);
+
+  useEffect(() => {
     getShipper();
   }, []);
 
