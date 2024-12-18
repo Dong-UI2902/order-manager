@@ -115,12 +115,8 @@ const columns: ColumnOrder[] = [
 // ];
 
 const Orders = () => {
-  const { orders, getOrdersWithFilter, date, loading } = useOrder();
+  const { orders, loading } = useOrder();
   const { getShipper } = useAuth();
-
-  useEffect(() => {
-    getOrdersWithFilter({ filter: "", since: date[0], until: date[1] });
-  }, [date]);
 
   useEffect(() => {
     getShipper();
