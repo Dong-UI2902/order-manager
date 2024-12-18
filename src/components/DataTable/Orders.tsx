@@ -115,10 +115,20 @@ const columns: ColumnOrder[] = [
 // ];
 
 const Orders = () => {
-  const { orders, loading } = useOrder();
+  const { orders, getOrdersWithFilter, date, loading } = useOrder();
   const { getShipper } = useAuth();
 
   useEffect(() => {
+    if ("since" in sessionStorage) {
+      getOrdersWithFilter({
+        filter: "",
+        since: sessionStorage.getItem("since"),
+        until: sessionStorage.getItem("until"),
+      });
+    } else {
+      getOrdersWithFilter({ filter: "", since: date[0], until: date[1] });
+    }
+
     getShipper();
   }, []);
 

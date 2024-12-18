@@ -19,10 +19,8 @@ const Date = () => {
   const { date, setDate, getOrdersWithFilter } = useOrder();
 
   const handleClick = () => {
-    console.log(date);
-
-    sessionStorage.setItem("since", date[0] ? date[0].toString() : "");
-    sessionStorage.setItem("until", date[1] ? date[1].toString() : "");
+    sessionStorage.setItem("since", date[0] ? date[0].toDate().toString() : "");
+    sessionStorage.setItem("until", date[1] ? date[1].toDate().toString() : "");
     getOrdersWithFilter({ filter: "", since: date[0], until: date[1] });
   };
 
