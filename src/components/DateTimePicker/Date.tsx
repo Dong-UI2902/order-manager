@@ -3,7 +3,6 @@ import {
   LocalizationProvider,
   DateRangePicker,
   SingleInputDateRangeField,
-  DateRange,
 } from "@mui/x-date-pickers-pro";
 import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
 import { useOrder } from "../../context/Order/Provider";
@@ -12,17 +11,10 @@ import { useOrder } from "../../context/Order/Provider";
 //     padding: "7.5px 14px",
 //   },
 // });
-import dayjs, { Dayjs } from "dayjs";
-import { Button } from "@mui/material";
+import dayjs from "dayjs";
 
 const Date = () => {
-  const { date, setDate, getOrdersWithFilter } = useOrder();
-
-  const handleClick = () => {
-    sessionStorage.setItem("since", date[0] ? date[0].toDate().toString() : "");
-    sessionStorage.setItem("until", date[1] ? date[1].toDate().toString() : "");
-    getOrdersWithFilter({ filter: "", since: date[0], until: date[1] });
-  };
+  const { date, setDate } = useOrder();
 
   useEffect(() => {
     if ("since" in sessionStorage) {
@@ -58,9 +50,6 @@ const Date = () => {
           }
         />
       </LocalizationProvider>
-      <Button variant="contained" onClick={handleClick}>
-        Áp dụng
-      </Button>
     </>
   );
 };

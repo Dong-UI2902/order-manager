@@ -35,7 +35,6 @@ const OrderProvider: React.FC<{ children: any }> = ({ children }) => {
 
   const getOrdersWithFilter = (filter: any) => {
     setLoading(true);
-    console.log(filter);
 
     OrderSerive.getOrdersWithFilter(filter)
       .then((res) => setOrders(res.data))

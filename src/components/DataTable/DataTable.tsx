@@ -14,6 +14,7 @@ import {
   IconButton,
   Chip,
   Badge,
+  Link,
 } from "@mui/material";
 import React from "react";
 import { ColumnOrder } from "./Orders";
@@ -102,13 +103,11 @@ const DataTable: React.FC<{
 
       case "action":
         return (
-          <IconButton
-            aria-label="delete"
-            color="primary"
-            onClick={() => (window.location.href = `order/${row._id}`)}
-          >
-            <EditIcon fontSize="small" />
-          </IconButton>
+          <Link target="_blank" href={`/order/${row._id}`}>
+            <IconButton aria-label="delete" color="primary">
+              <EditIcon fontSize="small" />
+            </IconButton>
+          </Link>
         );
 
       case "type":
