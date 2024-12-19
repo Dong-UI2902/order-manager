@@ -15,11 +15,12 @@ import {
   Chip,
   Badge,
   Link,
+  PropTypes,
 } from "@mui/material";
 import React from "react";
 import { ColumnOrder } from "./Orders";
 import { ColumnPage } from "./Page";
-import { STATUS, TYPE } from "../../context/Order/Constain";
+import { STATUS, STATUS2, TYPE } from "../../context/Order/Constain";
 import { useOrder } from "../../context/Order/Provider";
 import { useAuth } from "../../context/Auth";
 import EditIcon from "@mui/icons-material/Edit";
@@ -161,12 +162,17 @@ const DataTable: React.FC<{
               onChange={(event: { target: { value: string } }) => {
                 updateOrder({ ...row, status: event.target.value });
               }}
+              disableUnderline
             >
-              {STATUS.map((item) => (
-                <MenuItem value={item} key={item}>
-                  {item}
-                </MenuItem>
-              ))}
+              {STATUS2.map((item) => {
+                const color = item.color as Exclude<PropTypes.Color, "inherit">;
+
+                return (
+                  <MenuItem value={item.id} key={item.id}>
+                    <Chip label={item.name} variant="filled" color={color} />
+                  </MenuItem>
+                );
+              })}
             </Select>
           </FormControl>
         );
@@ -212,9 +218,9 @@ const DataTable: React.FC<{
                     hover
                     tabIndex={-1}
                     key={row._id}
-                    sx={{
-                      backgroundColor: `${row.status === "SHIPPED" && "rgb(237, 247, 237)!important"}`,
-                    }}
+                    // sx={{
+                    //   backgroundColor: `${row.status === "SHIPPED" && "rgb(237, 247, 237)!important"}`,
+                    // }}
                   >
                     {columns.map((column) => {
                       return (

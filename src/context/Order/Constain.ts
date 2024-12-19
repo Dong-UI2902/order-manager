@@ -25,3 +25,30 @@ export const TYPE = ["GRAB", "AHAMOVE", "SHIPPER", "GHN"];
 export const PAGE = ["THƠM PARFUM", "PAGE 1", "PAGE 2", "THƠM PARFUM 2"]
 
 export const STATUS = ["CREATED", "TO SHIP", "SHIPPING", "SHIPPED", "CANCEL"];
+export const STATUS2 = [
+    {
+    id: "CREATED",
+    name: "Đã tạo",
+    color: "default"
+},
+{
+    id: "TO SHIP",
+    name: "Đã đóng",
+    color: "info"
+},
+{
+    id: "SHIPPING",
+    name: "Đang giao",
+    color: "warning"
+},
+{
+    id: "SHIPPED",
+    name: "Đã giao",
+    color: "success"
+},
+{
+    id: "CANCEL",
+    name: "Đã huỷ",
+    color: "error"
+}
+]

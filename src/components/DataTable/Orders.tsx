@@ -58,7 +58,7 @@ const columns: ColumnOrder[] = [
   {
     id: "status",
     label: "Trạng thái",
-    maxWidth: 100,
+    maxWidth: 120,
     align: "right",
   },
   {
