@@ -17,6 +17,7 @@ import { ORDER, PAGE, TYPE } from "../context/Order/Constain";
 import { useOrder } from "../context/Order/Provider";
 import { useAuth } from "../context/Auth";
 import { useParams } from "react-router-dom";
+import Grid from "@mui/material/Grid2";
 
 const OrderForm = () => {
   const {
@@ -97,125 +98,137 @@ const OrderForm = () => {
         <h2>{id ? "Cập nhật đơn hàng" : "Tạo mới đơn hàng"}</h2>
 
         <form onSubmit={handleSubmit} id="myForm">
-          <FormControl fullWidth sx={{ m: 1, width: "25ch" }}>
-            <TextField
-              id="outlined-basic"
-              label="Tên"
-              name="name"
-              onChange={handleChange}
-              variant="outlined"
-              value={order.name}
-            />
-            <TextField
-              id="standard-basic"
-              label="Ghi chú"
-              sx={{ mt: 0.5 }}
-              variant="standard"
-              name="desc"
-              onChange={handleChange}
-              value={order.desc}
-            />
-          </FormControl>
-          <FormControl fullWidth sx={{ m: 1, width: "25ch" }}>
-            <TextField
-              id="outlined-basic"
-              label="Số điện thoại"
-              variant="outlined"
-              name="phoneNumber"
-              onChange={handleChange}
-              value={order.phoneNumber}
-            />
-
-            <Stack direction="row" spacing={1} mt={0.5}>
-              <TextField
-                id="standard-basic"
-                label="Tiền cọc"
-                variant="standard"
-                slotProps={{
-                  input: {
-                    endAdornment: (
-                      <InputAdornment position="start">vnđ</InputAdornment>
-                    ),
-                  },
-                }}
-                value={order.cod.deposit.toLocaleString("en-US")}
-                onChange={(event: any) => {
-                  setOrder({
-                    ...order,
-                    cod: { ...order.cod, deposit: event.target.value },
-                  });
-                }}
-              />
-              <TextField
-                id="standard-basic"
-                label="Phí ship"
-                variant="standard"
-                slotProps={{
-                  input: {
-                    endAdornment: (
-                      <InputAdornment position="start">vnđ</InputAdornment>
-                    ),
-                  },
-                }}
-                value={order.cod.transCost.toLocaleString("en-US")}
-                onChange={(event: any) => {
-                  setOrder({
-                    ...order,
-                    cod: { ...order.cod, transCost: event.target.value },
-                  });
-                }}
-              />
-            </Stack>
-          </FormControl>
-
-          <FormControl fullWidth sx={{ m: 1, width: "25ch" }}>
-            <TextField
-              id="outlined-basic"
-              label="cod"
-              variant="outlined"
-              name="cod"
-              slotProps={{
-                input: {
-                  endAdornment: (
-                    <InputAdornment position="start">vnđ</InputAdornment>
-                  ),
-                },
-              }}
-              onChange={(event: any) => {
-                setOrder({
-                  ...order,
-                  cod: { ...order.cod, total: event.target.value },
-                });
-              }}
-              value={order.cod.total.toLocaleString("en-US")}
-            />
-            <FormControlLabel
-              control={<Checkbox />}
-              label="Đã thanh toán"
-              checked={order.cod.paid}
-              sx={{ mt: 1 }}
-              onChange={(event: any) => {
-                setOrder({
-                  ...order,
-                  cod: { ...order.cod, paid: event.target.checked },
-                });
-              }}
-            />
-          </FormControl>
-          <FormControl fullWidth sx={{ m: 1, width: "52ch" }}>
-            <TextField
-              id="outlined-basic"
-              label="Địa chỉ"
-              variant="outlined"
-              name="address"
-              onChange={handleChange}
-              value={order.address}
-            />
-            <div>
-              <FormControl
-                variant="filled"
-                sx={{ mr: 1, mt: 1.5, mb: 1, width: "15ch" }}
-              >
+          <Grid container spacing={1}>
+            <Grid size={{ xs: 6, md: 6 }}>
+              <FormControl fullWidth>
+                <TextField
+                  id="outlined-basic"
+                  label="Tên"
+                  name="name"
+                  onChange={handleChange}
+                  variant="outlined"
+                  value={order.name}
+                />
+              </FormControl>
+            </Grid>
+            <Grid size={{ xs: 6, md: 6 }}>
+              <FormControl fullWidth>
+                <TextField
+                  id="outlined-basic"
+                  label="Số điện thoại"
+                  variant="outlined"
+                  name="phoneNumber"
+                  onChange={handleChange}
+                  value={order.phoneNumber}
+                />
+              </FormControl>
+            </Grid>
+            <Grid size={{ xs: 12, md: 12 }}>
+              <FormControl fullWidth>
+                <TextField
+                  id="outlined-basic"
+                  label="Địa chỉ"
+                  variant="outlined"
+                  name="address"
+                  onChange={handleChange}
+                  value={order.address}
+                />
+              </FormControl>
+            </Grid>
+            <Grid size={{ xs: 12, md: 12 }}>
+              <FormControl fullWidth>
+                <TextField
+                  id="standard-basic"
+                  label="Ghi chú"
+                  variant="outlined"
+                  name="desc"
+                  onChange={handleChange}
+                  value={order.desc}
+                />
+              </FormControl>
+            </Grid>
+            <Grid size={{ xs: 6, md: 6 }}>
+              <FormControl fullWidth>
+                <TextField
+                  id="outlined-basic"
+                  label="cod"
+                  variant="outlined"
+                  name="cod"
+                  slotProps={{
+                    input: {
+                      endAdornment: (
+                        <InputAdornment position="start">vnđ</InputAdornment>
+                      ),
+                    },
+                  }}
+                  onChange={(event: any) => {
+                    setOrder({
+                      ...order,
+                      cod: { ...order.cod, total: event.target.value },
+                    });
+                  }}
+                  value={order.cod.total.toLocaleString("en-US")}
+                />
+                <FormControlLabel
+                  control={<Checkbox />}
+                  label="Đã thanh toán"
+                  checked={order.cod.paid}
+                  sx={{ mt: 1 }}
+                  onChange={(event: any) => {
+                    setOrder({
+                      ...order,
+                      cod: { ...order.cod, paid: event.target.checked },
+                    });
+                  }}
+                />
+              </FormControl>
+            </Grid>
+            <Grid size={{ xs: 6, md: 6 }}>
+              <FormControl fullWidth>
+                <TextField
+                  id="standard-basic"
+                  label="Tiền cọc"
+                  variant="outlined"
+                  slotProps={{
+                    input: {
+                      endAdornment: (
+                        <InputAdornment position="start">vnđ</InputAdornment>
+                      ),
+                    },
+                  }}
+                  value={order.cod.deposit.toLocaleString("en-US")}
+                  onChange={(event: any) => {
+                    setOrder({
+                      ...order,
+                      cod: { ...order.cod, deposit: event.target.value },
+                    });
+                  }}
+                />
+              </FormControl>
+              <FormControl fullWidth>
+                <TextField
+                  id="standard-basic"
+                  label="Phí ship"
+                  variant="standard"
+                  slotProps={{
+                    input: {
+                      endAdornment: (
+                        <InputAdornment position="start">vnđ</InputAdornment>
+                      ),
+                    },
+                  }}
+                  value={order.cod.transCost.toLocaleString("en-US")}
+                  onChange={(event: any) => {
+                    setOrder({
+                      ...order,
+                      cod: { ...order.cod, transCost: event.target.value },
+                    });
+                  }}
+                />
+              </FormControl>
+            </Grid>
+            <Grid size={{ xs: 4, md: 4 }}>
+              <FormControl variant="filled" fullWidth>
                 <InputLabel id="demo-simple-select-filled-label">
                   Vận chuyển
                 </InputLabel>
@@ -235,10 +248,9 @@ const OrderForm = () => {
                   ))}
                 </Select>
               </FormControl>
-              <FormControl
-                variant="filled"
-                sx={{ ml: 1, mt: 1.5, mb: 1, width: "15ch" }}
-              >
+            </Grid>
+            <Grid size={{ xs: 4, md: 4 }}>
+              <FormControl variant="filled" fullWidth>
                 <InputLabel id="demo-simple-select-filled-label">
                   Người giao
                 </InputLabel>
@@ -248,7 +260,10 @@ const OrderForm = () => {
                   value={order.deliveredBy ? order.deliveredBy : ""}
                   onChange={(event: { target: { value: string } }) => {
                     if (event.target.value)
-                      setOrder({ ...order, deliveredBy: event.target.value });
+                      setOrder({
+                        ...order,
+                        deliveredBy: event.target.value,
+                      });
                   }}
                   disabled={order.type !== "SHIPPER"}
                 >
@@ -259,10 +274,9 @@ const OrderForm = () => {
                   ))}
                 </Select>
               </FormControl>
-              <FormControl
-                variant="filled"
-                sx={{ ml: 1, mt: 1.5, mb: 1, width: "19ch" }}
-              >
+            </Grid>
+            <Grid size={{ xs: 4, md: 4 }}>
+              <FormControl variant="filled" fullWidth>
                 <InputLabel id="demo-simple-select-filled-label">
                   Fanpage
                 </InputLabel>
@@ -282,24 +296,26 @@ const OrderForm = () => {
                   ))}
                 </Select>
               </FormControl>
-            </div>
-          </FormControl>
+            </Grid>
+            <Grid size={{ xs: 12, md: 12 }}>
+              <FormControl variant="filled" fullWidth>
+                <TextField
+                  id="outlined-multiline-static"
+                  // label="Sản phẩm"
+                  multiline
+                  rows={4}
+                  defaultValue={order.products}
+                  onChange={(event: { target: { value: string } }) => {
+                    setOrder({
+                      ...order,
+                      products: stringToArr(event.target.value),
+                    });
+                  }}
+                />
+              </FormControl>
+            </Grid>
+          </Grid>
 
-          <FormControl variant="filled" sx={{ m: 1, width: "25ch" }}>
-            <TextField
-              id="outlined-multiline-static"
-              // label="Sản phẩm"
-              multiline
-              rows={4}
-              defaultValue={order.products}
-              onChange={(event: { target: { value: string } }) => {
-                setOrder({
-                  ...order,
-                  products: stringToArr(event.target.value),
-                });
-              }}
-            />
-          </FormControl>
           <Typography color="error" variant="subtitle1" gutterBottom>
             {error}
           </Typography>
@@ -319,7 +335,7 @@ const OrderForm = () => {
             className="order__container"
           >
             <h2>Bản nháp</h2>
-            <FormControl variant="filled" sx={{ m: 1, width: "50ch" }}>
+            <FormControl variant="filled" fullWidth>
               <TextField
                 id="outlined-multiline-static"
                 multiline

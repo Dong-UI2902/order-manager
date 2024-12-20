@@ -22,5 +22,9 @@ const HandlePhoneOrAddress = (row: any, column: any) => {
     </>
   );
 };
+const isMobile = () =>
+  /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
 
-export { isDev, HandlePhoneOrAddress };
+export { isDev, HandlePhoneOrAddress, isMobile };

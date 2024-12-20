@@ -25,7 +25,7 @@ import { useOrder } from "../../context/Order/Provider";
 import { useAuth } from "../../context/Auth";
 import EditIcon from "@mui/icons-material/Edit";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { HandlePhoneOrAddress } from "../../config/helper";
+import { HandlePhoneOrAddress, isMobile } from "../../config/helper";
 
 const DataTable: React.FC<{
   columns: ColumnOrder[] | ColumnPage[];

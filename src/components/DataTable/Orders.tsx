@@ -5,6 +5,7 @@ import { formatDistance } from "date-fns";
 import { useAuth } from "../../context/Auth";
 import { vi } from "date-fns/locale";
 import SkeletonTable from "./SkeletonTable";
+import { isMobile } from "../../config/helper";
 
 export interface ColumnOrder {
   id:
@@ -25,6 +26,43 @@ export interface ColumnOrder {
   align?: "right";
   format?: (value: any) => string;
 }
+
+const columnsMobile: ColumnOrder[] = [
+  { id: "name", label: "Tên khách hàng", minWidth: 150 },
+  { id: "address", label: "Địa chỉ", minWidth: 200 },
+  {
+    id: "phoneNumber",
+    label: "Số điện thoại",
+    minWidth: 70,
+    align: "right",
+    // format: (value: number) => value.toLocaleString("en-US"),
+  },
+  {
+    id: "cod",
+    label: "Tiền cod",
+    maxWidth: 120,
+    align: "right",
+    format: (value: number) => `${value.toLocaleString("en-US")}vnđ`,
+  },
+  {
+    id: "status",
+    label: "Trạng thái",
+    maxWidth: 100,
+    align: "right",
+  },
+  {
+    id: "createdAt",
+    label: "Ngày tạo",
+    align: "right",
+    format: (value: Date) =>
+      `${formatDistance(new Date(), new Date(value), { locale: vi })}`,
+  },
+  {
+    id: "action",
+    label: "Thao tác",
+    align: "right",
+  },
+];
 
 const columns: ColumnOrder[] = [
   { id: "name", label: "Tên khách hàng", minWidth: 150 },
@@ -137,7 +175,10 @@ const Orders = () => {
       {loading ? (
         <SkeletonTable />
       ) : (
-        <DataTable columns={columns} rows={orders || []} />
+        <DataTable
+          columns={isMobile() ? columnsMobile : columns}
+          rows={orders || []}
+        />
       )}
     </>
   );

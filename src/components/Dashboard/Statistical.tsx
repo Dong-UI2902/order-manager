@@ -22,7 +22,7 @@ const Statistical = () => {
   return (
     <Box component={"section"} sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
-        <Grid size={3}>
+        <Grid size={{ xs: 12, md: 3 }}>
           <Box sx={{ minWidth: 275 }}>
             <Card variant="outlined">
               <CardDashboard
@@ -35,7 +35,7 @@ const Statistical = () => {
             </Card>
           </Box>
         </Grid>
-        <Grid size={3}>
+        <Grid size={{ xs: 12, md: 3 }}>
           <Box sx={{ minWidth: 275 }}>
             <Card variant="outlined">
               <CardDashboard
@@ -48,7 +48,7 @@ const Statistical = () => {
             </Card>
           </Box>
         </Grid>
-        <Grid size={3}>
+        <Grid size={{ xs: 12, md: 3 }}>
           <Box sx={{ minWidth: 275 }}>
             <Card variant="outlined">
               <CardDashboard
@@ -61,7 +61,7 @@ const Statistical = () => {
             </Card>
           </Box>
         </Grid>
-        <Grid size={3}>
+        <Grid size={{ xs: 12, md: 3 }}>
           <Box sx={{ minWidth: 275 }}>
             <Card variant="outlined">
               <CardDashboard
