@@ -43,6 +43,12 @@ const AuthProvider: React.FC<{ children: any }> = ({ children }) => {
       .finally(() => setLoadingInitial(false));
   }, [location.pathname]);
 
+  useEffect(() => {
+    if (user && user.role === "SHIPPER") {
+      if (location.pathname !== "/shipper") window.location.href = "/shipper";
+    }
+  }, [user]);
+
   const register = (userSignup: UserSignup) => {
     setLoading(true);
     // if (userSignup.passwordConfirmation !== userSignup.password) {

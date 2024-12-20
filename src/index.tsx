@@ -8,6 +8,7 @@ import { Layout, Provider } from "./layouts/Layout";
 import Dashboard from "./pages/Dashboard";
 import SignIn from "./pages/SignIn";
 import OrderForm from "./pages/OrderForm";
+import Shipping from "./pages/Shipping";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
               {
                 path: "/order/:id",
                 Component: OrderForm,
+              },
+              {
+                path: "/shipper",
+                Component: Shipping,
               },
             ],
           },

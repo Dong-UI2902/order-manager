@@ -20,11 +20,12 @@ import {
 import React from "react";
 import { ColumnOrder } from "./Orders";
 import { ColumnPage } from "./Page";
-import { STATUS, STATUS2, TYPE } from "../../context/Order/Constain";
+import { STATUS2, TYPE } from "../../context/Order/Constain";
 import { useOrder } from "../../context/Order/Provider";
 import { useAuth } from "../../context/Auth";
 import EditIcon from "@mui/icons-material/Edit";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { HandlePhoneOrAddress } from "../../config/helper";
 
 const DataTable: React.FC<{
   columns: ColumnOrder[] | ColumnPage[];
@@ -45,19 +46,6 @@ const DataTable: React.FC<{
   ) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
-  };
-
-  const HandlePhoneOrAddress = (row: any, column: any) => {
-    return (
-      <Tooltip title="Click để copy">
-        <div
-          className="phone-number"
-          onClick={() => navigator.clipboard.writeText(row[column.id])}
-        >
-          {row[column.id]}
-        </div>
-      </Tooltip>
-    );
   };
 
   const HandleValue = (row: any, column: any) => {
@@ -121,6 +109,7 @@ const DataTable: React.FC<{
               onChange={(event: { target: { value: string } }) => {
                 updateOrder({ ...row, type: event.target.value });
               }}
+              disableUnderline
             >
               {TYPE.map((item) => (
                 <MenuItem value={item} key={item}>

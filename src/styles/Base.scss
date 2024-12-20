@@ -13,3 +13,78 @@ section {
     margin: 0 auto;
   }
 }
+
+.shopping {
+  &__section {
+    padding-top: 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .cart {
+    padding: 0.3rem;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 6px !important;
+    // background-color: var(--primary-color);
+    margin-top: 1rem;
+
+    &__accordion {
+      box-shadow: none;
+      border-radius: 5px;
+      background-color: #e6efeb;
+      margin-top: 10px;
+      &:before {
+        background: none;
+      }
+
+      #cod {
+        color: #2e7d32;
+      }
+
+      #transCost {
+        color: #d32f2f;
+      }
+
+      #total {
+        color: #0288d1;
+      }
+    }
+
+    &__bill > * {
+      font-size: 15px;
+    }
+
+    &__bill {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      // color: #fff;
+
+      &-name {
+        font-size: 17px;
+        font-weight: 500;
+      }
+
+      // &-phoneNumber {
+      //   // font-size: 15px;
+      // }
+
+      &-address {
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+        overflow: hidden;
+        margin-top: 10px;
+      }
+
+      &-cod {
+        text-align: end;
+        font-size: 0.9rem;
+      }
+    }
+
+    button {
+      font-size: 10px;
+    }
+  }
+}

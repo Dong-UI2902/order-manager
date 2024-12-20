@@ -1,5 +1,5 @@
 import axios from 'axios';
-import isDev from './helper';
+import { isDev } from './helper';
 
 //TODO: fix url
 export const axiosClient = axios.create({
