@@ -14,10 +14,10 @@ import {
 import React, { useEffect } from "react";
 import { useAuth } from "../context/Auth";
 import { useOrder } from "../context/Order/Provider";
-import Date from "../components/DateTimePicker/Date";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { STATUS2 } from "../context/Order/Constain";
 import Grid from "@mui/material/Grid2";
+import Filter from "../components/DataTable/Filter";
 
 const Shipping = () => {
   const { date, orders, getOrdersWithFilter, loading, updateOrder } =
@@ -44,7 +44,7 @@ const Shipping = () => {
 
   return (
     <div className="shopping">
-      <Date />
+      <Filter />
       <div className="shopping__section">
         <div className="shopping__title">Tất cả các đơn hàng của bạn</div>
         {orders?.length > 0 ? (

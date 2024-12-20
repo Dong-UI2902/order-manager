@@ -1,6 +1,5 @@
 import React from "react";
-import Date from "../components/DateTimePicker/Date";
-import { Box, Stack } from "@mui/material";
+import { Box } from "@mui/material";
 import Orders from "../components/DataTable/Orders";
 import Statistical from "../components/Dashboard/Statistical";
 import Filter from "../components/DataTable/Filter";
@@ -8,9 +7,7 @@ import Filter from "../components/DataTable/Filter";
 const Dashboard = () => {
   return (
     <div style={{ position: "relative" }}>
-      <Stack direction="row" spacing={2}>
-        <Filter />
-      </Stack>
+      <Filter />
       <Statistical />
       <Box component={"section"} sx={{ position: "absolute", width: "100%" }}>
         <Orders />
