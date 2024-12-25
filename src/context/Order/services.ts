@@ -19,6 +19,12 @@ async function findbyId(id: string): Promise<OrderRespone> {
     return response.data;
 };
 
+async function findByPhoneNumber(phoneNumber: string): Promise<OrderRespone> {
+    const response = await Api.get(`order/search/${phoneNumber}`);
+  
+    return response.data;
+};
+
 async function addNewOrder(newOrder: Order): Promise<OrderRespone> {
     const response = await Api.post(`order`, newOrder);
 
@@ -36,5 +42,6 @@ export default {
     getOrdersWithFilter,
     updateOrder,
     addNewOrder,
-    findbyId
+    findbyId,
+    findByPhoneNumber
 };

@@ -51,5 +51,5 @@ export interface OrderContextAPI extends OderProviderState {
     stringToArr: (products: string) => string[];
     addNewOrder: (newOrder: Order) => void;
     findById: (id: string) => void;
-    // findByPhoneNumber: (phoneNumber: string) => void;
+    findByPhoneNumber: (phoneNumber: string) => void;
 };

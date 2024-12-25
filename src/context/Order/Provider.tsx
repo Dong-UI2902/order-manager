@@ -101,6 +101,15 @@ const OrderProvider: React.FC<{ children: any }> = ({ children }) => {
       .finally(() => setLoading(false));
   };
 
+  const findByPhoneNumber = (phoneNumber: string) => {
+    setLoading(true);
+
+    OrderSerive.findByPhoneNumber(phoneNumber)
+      .then((res) => setOrders(res.data))
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
+  };
+
   const memoValue = useMemo(
     () => ({
       loading,
@@ -117,6 +126,7 @@ const OrderProvider: React.FC<{ children: any }> = ({ children }) => {
       getOrdersWithFilter,
       date,
       setDate,
+      findByPhoneNumber,
     }),
     [date, order, orders, loading, error]
   );
