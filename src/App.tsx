@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles/Base.scss";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -83,7 +83,7 @@ const BRANDING = {
 
 function App() {
   const { user, logout } = useAuth();
-  const [session, setSession] = React.useState<Session | null>({
+  const [session, setSession] = useState<Session | null>({
     user,
   });
 

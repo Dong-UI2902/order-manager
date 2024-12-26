@@ -9,8 +9,10 @@ const Statistical = () => {
 
   const totalCodByStatus = (type?: string) => {
     let total = 0;
-    let filtered = orders;
-    if (type) filtered = orders.filter((item) => item.status === type);
+    let filtered = orders.filter((item) => item.status !== "CANCEL");
+    if (type) {
+      filtered = orders.filter((item) => item.status === type);
+    }
 
     filtered.forEach((item) => {
       total = total + item.cod.total + item.cod.deposit - item.cod.transCost;

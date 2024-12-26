@@ -31,7 +31,7 @@ export interface OderProviderState {
     order: Order;
     setOrder: React.Dispatch<React.SetStateAction<Order>>;
     orders: Order[];
-    // setOrders: React.Dispatch<React.SetStateAction<Order[]>>;
+    setOrders: React.Dispatch<React.SetStateAction<Order[]>>;
     date: DateRange<Dayjs>
     setDate: React.Dispatch<React.SetStateAction< DateRange<Dayjs>>>;
 };

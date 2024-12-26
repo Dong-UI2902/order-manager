@@ -1,5 +1,9 @@
 import axios from 'axios';
 import { isDev } from './helper';
+const { io } = require("socket.io-client");
+
+export const HOST = "http://localhost:5000";
+export const socket = io(HOST);
 
 //TODO: fix url
 export const axiosClient = axios.create({

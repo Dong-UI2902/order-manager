@@ -5,6 +5,7 @@ import { ORDER } from "./Constain";
 import { useLocation } from "react-router-dom";
 import { DateRange } from "@mui/x-date-pickers-pro";
 import dayjs, { Dayjs } from "dayjs";
+import { HOST, socket } from "../../config/Api";
 
 const OrderContext = createContext<OrderContextAPI>({} as OrderContextAPI);
 
@@ -17,6 +18,26 @@ const OrderProvider: React.FC<{ children: any }> = ({ children }) => {
     dayjs().subtract(7, "day"),
     dayjs(),
   ]);
+
+  useEffect(() => {
+    socket.connect(HOST);
+
+    socket.on("sendDataToClient", (data: Order) => {
+      setOrders((list: Order[]) => {
+        const arr = [data];
+        return arr.concat(list);
+      });
+    });
+
+    socket.on("sendDataUpdateToClient", (data: Order) => {
+      const index = orders.findIndex((item) => item._id === data._id);
+      orders[index] = data;
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   const location = useLocation();
 
@@ -47,8 +68,7 @@ const OrderProvider: React.FC<{ children: any }> = ({ children }) => {
 
     OrderSerive.updateOrder(newOrder)
       .then((res) => {
-        const index = orders.findIndex((item) => item._id === newOrder._id);
-        orders[index] = newOrder;
+        socket.emit("sendDataToServer", newOrder);
         setError(undefined);
       })
       .catch((err) => setError(err.message))
@@ -87,6 +107,7 @@ const OrderProvider: React.FC<{ children: any }> = ({ children }) => {
       .then((res) => {
         setOrder(ORDER);
         setError(undefined);
+        socket.emit("sendDataToServer", res.data);
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
@@ -118,6 +139,7 @@ const OrderProvider: React.FC<{ children: any }> = ({ children }) => {
       orders,
       order,
       setOrder,
+      setOrders,
       updateOrder,
       stringToArr,
       arrToString,
