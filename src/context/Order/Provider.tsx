@@ -32,6 +32,7 @@ const OrderProvider: React.FC<{ children: any }> = ({ children }) => {
     });
 
     socket.on("sendDataUpdateToClient", (data: Order) => {
+      console.log(data);
       const index = orders.findIndex((item) => item._id === data._id);
       orders[index] = data;
     });

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { isDev } from './helper';
-const { io } = require("socket.io-client");
+import { io } from "socket.io-client";
 
 export const HOST = isDev() ? 'http://localhost:5000' : 'https://order-server-nine.vercel.app';
 export const socket = io(HOST);
