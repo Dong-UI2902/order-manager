@@ -8,7 +8,7 @@ import LayersIcon from "@mui/icons-material/Layers";
 import { AppProvider, Navigation, Session } from "@toolpad/core";
 import { Outlet } from "react-router-dom";
 import { extendTheme } from "@mui/material/styles";
-import { AuthProvider, useAuth } from "./context/Auth";
+import { useAuth } from "./context/Auth";
 
 const NAVIGATION: Navigation = [
   {
@@ -104,17 +104,15 @@ function App() {
   }, []);
 
   return (
-    <AuthProvider>
-      <AppProvider
-        navigation={NAVIGATION}
-        theme={demoTheme}
-        branding={BRANDING}
-        session={session}
-        authentication={authentication}
-      >
-        <Outlet />
-      </AppProvider>
-    </AuthProvider>
+    <AppProvider
+      navigation={NAVIGATION}
+      theme={demoTheme}
+      branding={BRANDING}
+      session={session}
+      authentication={authentication}
+    >
+      <Outlet />
+    </AppProvider>
   );
 }
 

@@ -20,9 +20,11 @@ const OrderProvider: React.FC<{ children: any }> = ({ children }) => {
   ]);
 
   useEffect(() => {
-    socket.connect(HOST);
+    // socket.connect(HOST);
 
     socket.on("sendDataToClient", (data: Order) => {
+      console.log(data);
+
       setOrders((list: Order[]) => {
         const arr = [data];
         return arr.concat(list);
@@ -34,9 +36,9 @@ const OrderProvider: React.FC<{ children: any }> = ({ children }) => {
       orders[index] = data;
     });
 
-    return () => {
-      socket.disconnect();
-    };
+    // return () => {
+    //   socket.disconnect();
+    // };
   }, []);
 
   const location = useLocation();
@@ -102,7 +104,6 @@ const OrderProvider: React.FC<{ children: any }> = ({ children }) => {
 
   const addNewOrder = (newOrder: Order) => {
     setLoading(true);
-
     OrderSerive.addNewOrder(newOrder)
       .then((res) => {
         setOrder(ORDER);

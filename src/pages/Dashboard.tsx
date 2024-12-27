@@ -3,6 +3,7 @@ import { Box } from "@mui/material";
 import Orders from "../components/DataTable/Orders";
 import Statistical from "../components/Dashboard/Statistical";
 import Filter from "../components/DataTable/Filter";
+import SimpleSnackbar from "../components/SimpleSnackbar";
 
 const Dashboard = () => {
   return (
@@ -15,6 +16,7 @@ const Dashboard = () => {
       {/* <Box component={"section"}>
         <Page />
       </Box> */}
+      <SimpleSnackbar active={true} />
     </div>
   );
 };
