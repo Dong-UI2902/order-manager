@@ -2,7 +2,7 @@ import axios from 'axios';
 import { isDev } from './helper';
 import { io } from "socket.io-client";
 
-export const HOST = isDev() ? 'http://localhost:5000' : 'https://inspiring-jelly-43332e.netlify.app';
+export const HOST = isDev() ? 'http://localhost:5000' : 'https://order-server-nine.vercel.app';
 export const socket = io(HOST);
 
 //TODO: fix url
