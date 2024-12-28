@@ -5,7 +5,7 @@ import { ORDER } from "./Constain";
 import { useLocation } from "react-router-dom";
 import { DateRange } from "@mui/x-date-pickers-pro";
 import dayjs, { Dayjs } from "dayjs";
-import { HOST, socket } from "../../config/Api";
+import { socket } from "../../config/Api";
 
 const OrderContext = createContext<OrderContextAPI>({} as OrderContextAPI);
 

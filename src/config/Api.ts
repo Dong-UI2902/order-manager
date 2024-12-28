@@ -3,10 +3,7 @@ import { isDev } from './helper';
 import { io } from "socket.io-client";
 
 export const HOST = isDev() ? 'http://localhost:5000' : 'https://order-server-nine.vercel.app';
-export const socket = io(HOST, {
-  withCredentials: true,
-
-});
+export const socket = io(HOST);
 
 //TODO: fix url
 export const axiosClient = axios.create({
