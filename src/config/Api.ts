@@ -8,7 +8,7 @@ export const socket = io(HOST);
 //TODO: fix url
 export const axiosClient = axios.create({
   baseURL: isDev() ? 'http://localhost:5000/api' : 'https://order-server-nine.vercel.app/api',
-  withCredentials: true
+  // withCredentials: true
 });
 
 export const setCookie = (cookie: string) => {
