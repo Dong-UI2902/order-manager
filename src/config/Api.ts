@@ -5,7 +5,6 @@ import { io } from "socket.io-client";
 export const HOST = isDev() ? 'http://localhost:5000' : 'https://order-server-nine.vercel.app';
 export const socket = io(HOST, {
   withCredentials: true,
-  transports : ['websocket','polling', 'flashsocket'],
 });
 
 //TODO: fix url
